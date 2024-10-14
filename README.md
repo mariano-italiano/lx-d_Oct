@@ -1,1 +1,2 @@
-# lx-d_Oct
+## LX-D Docker w praktyce
+14-15.10.2024
