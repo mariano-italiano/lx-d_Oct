@@ -1,0 +1,321 @@
+for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" |   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+docker run hello-world
+sudo usermod -aG docker student
+docker run hello-world
+dcoker ps
+docker ps
+docker run hello-world
+docker ps -a
+docker rm strange_lumiere 
+docker ps -a
+sudo systemctl status docker
+ls -la
+git clone https://github.com/mariano-italiano/lx-d_Oct.git
+cd lx-d_Oct/.git/
+cd .
+cd ..
+docker images
+docker run httpd
+docker ps 
+docker ps -a
+docker run -d --name web1 httpd
+docker ps
+docker ps --all 
+docker ps --latest
+docker run --help
+docker run -d -it nginx:1.19.2 /bin/bash
+docker ps -a
+docker rm -f wizardly_mendel 
+docker run -d -it nginx:1.19.2 
+docker rm -f zealous_kare 
+docker run -it nginx:1.19.2 
+docker run -it nginx:1.19.2 /bin/bash
+docker ps -a
+docker ps 
+docker exec -it web1 bash
+docker ps -a
+docker exec -it web1 sh
+docker exec -it web1 uptime
+docker exec -it web1 ls -la
+docker logs web1
+docker logs nervous_goodall
+docker logs epic_wilbur
+curl http://172.17.0.2
+docker exec -it web1 ls -la
+docker exec -it web1 bash
+curl http://172.17.0.2
+docker exec -it web1 bash
+docker exec -u 0 web1 cat /etc/shadow
+docker logs --follow web1
+docker logs --tail 5 web1
+docker ps -a
+docker stop web1
+docker start cdb3535029b6
+docker ps -a
+docker pause cdb3 
+docker ps -a
+docker unpause web1
+docker ps -a
+docker restart web1
+docker ps -a
+docker rename web1 my-httpd
+docker ps -a
+docker rm nervous_goodall 
+docker ps -a
+docker rm my-httpd
+docker rm -f my-httpd
+docker ps
+docker ps -a
+docker container prne
+docker container prune 
+docker ps -a
+docker run -d --name web1 --restart=always httpd
+docker ps
+docker run -d --name web2 nginx
+docker ps -a
+sudo systemctl stop docker
+sudo systemctl status docker
+docker ps -a
+sudo systemctl status docker
+docker ps -a
+docker start web2
+docker ps -a
+docker inspect web1
+sudo ls -la /var/run/docker/
+sudo ls -la /var/lib/docker/
+sudo ls -la /var/lib/docker/image
+sudo ls -la /var/lib/docker/image/overlay2
+docker ps-a
+docker ps -a
+docker inspect web1
+ip a
+docker inspect web1 | grep restart
+docker inspect web1 | grep always
+docker inspect web1 | grep always -B 4 -A 4
+docker inspect web1 | grep always
+docker inspect --format '{{ .HostConfig.RestartPolicy.Name }}'  web1 
+docker ps 
+docker ps | awk '{print $1}'
+docker ps | awk '{print $1}'|head -1
+docker ps | awk '{print $1}'| grep -v "CONTAINER"
+for container in `docker ps | awk '{print $1}'| grep -v "CONTAINER"`; do docker inspect --format '{{ .HostConfig.RestartPolicy.Name }}' $container ;done
+for container in `docker ps | awk '{print $1}'| grep -v "CONTAINER"`; do echo $container; docker inspect --format '{{ .HostConfig.RestartPolicy.Name }}' $container ;done
+docker run -d --rm --name=u22 ubuntu 
+docker ps -a
+docker run -d --name=u22 ubuntu 
+docker ps -a
+docker run -d --name=ubuntu --entrypoint=tail ubuntu -f /dev/null 
+docker run -d --name=ubuntu2 --entrypoint="tail -f /dev/null" ubuntu
+docker inspect ubuntu2 | grep entrypoiny -A 4
+docker inspect ubuntu2 | grep entrypoint -A 4
+docker inspect ubuntu2 | grep -i entrypoint -A 4
+docker run -d --name=ubuntu --entrypoint=tail ubuntu -f /dev/null 
+docker inspect ubuntu | grep -i entrypoint -A 4
+docker inspect ubuntu | grep -i "-f /dev/"
+docker inspect ubuntu | grep -i "/dev/null"
+docker inspect ubuntu | grep -i "/dev/null" -B 4
+docker ps 
+docker ps -a
+docker container prune
+docker run -d --name=ubuntu2 --entrypoint ubuntu -c 'tail -f /dev/null'
+docker container prune
+docker run -d --name=ubuntu2 --entrypoint '/bin/bash' ubuntu -c 'tail -f /dev/null'
+docker ps -a
+vi /tmp/DOckerfile
+docker build -t custom-web .
+mv /tmp/DOckerfile /tmp/Dockerfile
+cd /tmp
+docker build -t custom-web .
+docker run -d --name web22 custom-web
+docker ps -a
+docker logs web22
+vi Dockerfile 
+docker build -t custom-web .
+docker rm -f web22
+docker run -d --name web22 custom-web
+docker ps -a
+docker logs web22
+vi Dockerfile 
+rm Dockerfile 
+vi Dockerfile
+docker build -t custom-web .
+vi Dockerfile
+docker build -t custom-web .
+docker ps -a
+docker rm web22
+docker run -d --name u1 custom-web
+docker ps -a
+vi Dockerfile
+docker build -t custom-web .
+docker rm web22
+docker rm u1
+docker run -d --name u1 custom-web
+docker ps -a
+docker rm u1
+vi Dockerfile
+docker build -t custom-web .
+docker run -d --name u1 custom-web
+docker ps -a
+docker exec -it u1 bash
+cat Dockerfile 
+rm Dockerfile 
+docker images
+docker rmi custom-web:latest 
+docker rm -f u1
+docker rmi custom-web:latest 
+docker images
+docker rmi d9fb7d42ea03 bf3fdb4c5f75 cd999bfcab0c c38e45b594d8 f5a5e22f937f
+docker images
+cd
+cd lx-d_Oct/
+docker search mariadb
+docker search nginx
+docker pull mariadb
+docker pull nginx:1.19.2-perl
+docker images
+docker rmi 9bbf3cf08562
+docker images
+docker pull nginx:1.19.2-perl
+docker pull ubuntu:20.04
+docker images
+docker ps -a
+docker rm -f ubuntu2
+docker rm -f ubuntu
+docker ps -a
+docker image prune
+docker images
+docker image prune
+docker images prune
+docker image --help
+docker ps -a
+sudo docker image prune
+docker images
+docker image prune
+docker images
+docker ps -a
+docker pull postgress:8
+docker pull postgres:8
+docker inspect web1
+curl http://172.17.0.2
+curl http://172.17.0.3
+docker images
+docker ps -a
+docker exec -it web2 bash
+docker commit web2 my-custom-nginx:1.0
+docker images
+docker run -d --name web3 -p 80:80 my-custom-nginx:1.0
+docker ps -a
+ip a
+docker login
+docker login -u markuj5@gmail.com
+docker push my-custom-nginx:1.0 
+docker image
+docker images
+docker tag 005f4292ef17 marcinkujawski/my-custom-nginx:1.0 
+docker push marcinkujawski/my-custom-nginx:1.0
+docker tag 005f4292ef17 marcinkujawski/my-custom-nginx:1.5 
+docker push marcinkujawski/my-custom-nginx:1.5
+docker tag 005f4292ef17 marcinkujawski/lxd:latest 
+docker push marcinkujawski/lxd:latest
+sudo vi /etc/hosts
+ping registry.lab.local
+sudo mkdir /etc/docker/certs.d/registry.lab.local
+sudo mkdir /etc/docker/certs.d/registry.lab.local -p
+sudo -i
+docker login https://registry.lab.local
+\
+docker images
+docker push marcinkujawski/my-custom-nginx:1.5 
+docker push  https://registry.lab.local/marcinkujawski/my-custom-nginx:1.5 
+docker logout
+docker login https://registry.lab.local
+docker push marcinkujawski/my-custom-nginx:1.5 
+vi /home/student/.docker/config.json
+docker images
+docker tag 005f4292ef17 library/my-custom-nginx:1.0
+docker push library/my-custom-nginx:1.0
+docker logout 
+docker login https://registry.lab.local
+docker logout https://registry.lab.local
+vi /home/student/.docker/config.json
+docker login https://registry.lab.local
+docker push library/my-custom-nginx:1.0
+docker logout docker.io
+docker push library/my-custom-nginx:1.0
+docker push registry.lab.local/library/my-custom-nginx:1.0
+docker tag 005f4292ef17 registry.lab.local/library/my-custom-nginx:1.0
+docker push registry.lab.local/library/my-custom-nginx:1.0
+docker tag 005f4292ef17 registry.lab.local/marcinkujawski/my-custom-nginx:1.0
+docker push registry.lab.local/marcinkujawski/my-custom-nginx:1.0
+vi deploy-harbor.sh
+git status
+git add deploy-harbor.sh 
+got commit -m "adding deploy harbor file"
+git commit -m "adding deploy harbor file"
+git config --global user.email "markuj5@gmail.com"
+git commit -m "adding deploy harbor file"
+git push
+docker run -d httpd --name test-web -p 1234:80
+docker run -d  --name test-web -p 1234:80 httpd
+docker ps -a
+vi Dockerfile
+mkdir ubuntu-customuser
+cd ubuntu-customuser
+vi Dockerfile
+docker build -t ubuntu-customuser:1.0 . 
+docker images
+docker run -d --name custom-ubuntu ubuntu-customuser:1.0
+docker ps -a
+docker logs 6aa5ab2f24e3
+vi Dockerfile
+docker build -t ubuntu-customuser:1.0 . 
+docker run -d --name custom-ubuntu2 ubuntu-customuser:1.0
+docker logs custom-ubuntu2
+vi Dockerfile
+docker build -t ubuntu-customuser:2.0 . 
+docker run -d --name custom-ubuntu-final ubuntu-customuser:2.0
+docker ps 
+docker exec -it 656900bd699f bash
+vi Dockerfile 
+cd ..
+mkdir nginx-custom
+cd nginx-custom
+ls -la
+vi Dockerfile
+cd ../ubuntu-customuser/
+docker images
+cd ../nginx-custom/
+vi Dockerfile 
+vi default.conf
+vi .htpasswd
+htpasswd -c .htpasswd student
+sudo apt install apache2-utils -y
+htpasswd -c .htpasswd student
+ls -la
+cat .htpasswd
+docker build -t nginx-custom:1.0 .
+docker run -d --name nginx-custom nginx-custom:1.0 
+docker ps 
+docker rm -f nginx-custom 
+docker run -d --name nginx-custom -p 8080:80 nginx-custom:1.0 
+cd ..
+mkdir nginx-custom2
+cd nginx-custom2
+vi Dockerfile
+docker build -t nginx-custom2:1.0 .
+vi Dockerfile
+docker run -d --name nginx-rental -p 8081:80 nginx-custom2:1.0
+docker build -t nginx-custom2:1.0 --build-arg NGINX_CONTENT_BRANCH="2.0" .
+docker run -d --name nginx-bookstore -p 8082:80 nginx-custom2:1.0
+history
+cd ..
+history | awk '$1 > 19' | cut -c 8- > day1-history.txt
