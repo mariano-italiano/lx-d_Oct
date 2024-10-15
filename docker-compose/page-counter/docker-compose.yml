@@ -1,0 +1,19 @@
+services:
+  db:
+    image: redis:6
+    container_name: redis_db
+    ports:
+      - "6379:6379"
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: python_app
+    ports: 
+      - "5000:5000"
+    depends_on:
+      - db
+    volumes:
+      - .:/app-content
+ 
