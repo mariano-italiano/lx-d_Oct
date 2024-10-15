@@ -1,0 +1,337 @@
+cd lx-d_Oct/
+ls -la
+mkdir python-api
+cd python-api/
+vi app.py
+vi Dockerfile
+vi requirements.txt
+docker build -t python-api:1.0 .
+docker ps -a
+docker container prune
+docker ps -a
+docker run -d --name python-api -p 8080:8080 python-api:1.0 
+docker ps -a
+docker logs python-api 
+vi Dockerfile 
+vi requirements.txt 
+vi app.py 
+docker build -t python-api:1.0 .
+docker rm python-api 
+docker run -d --name python-api -p 8080:8080 python-api:1.0 
+docker ps -a
+docker rm httpd -f
+docker rm -f web1 
+docker ps -a
+cd ..
+mkdir postfix
+cd postfix/
+vi Dockerfile
+cd ../ubuntu-customuser/
+ls -la
+docker images
+ls -la
+cd ../postfix/
+vi Dockerfile 
+docker pull alpine:3.17
+docker images
+vi Dockerfile 
+docker pull busybox
+vi Dockerfile 
+docker images
+vi Dockerfile 
+vi main.cf
+docker build -t postfix:1.0 .
+cd ../
+mkdir simple-busybox
+cd simple-busybox
+vi Dockerfile
+docker build -t simple-busybox:1.0
+docker build -t simple-busybox:1.0 .
+docker run -d --name mailrelay -p 25:25 postfix:1.0 
+docker run -d --name busy simple-busybox:1.0 
+docker ps -a
+docker exec -it busy bash
+docker exec -it busy sh
+ps -ef 
+ps -ef | grep docker
+ps -ef | grep busy
+vi Dockerfile
+docker build -t simple-busybox:1.0 .
+docker run -d --name busy2 simple-busybox:1.0 
+docker exec -it busy2 sh
+cd ..
+mkdir salary
+cd salary/
+vi Dockerfile
+vi salary_data.csv
+vi salaryPredict.py
+docker build -t salary:1.0 .
+vi Dockerfile 
+vi salaryPredict.py
+docker run -d --name salary salary:1.0 
+docker ps
+docker ps -a
+docker logs salary 
+docker inspect salary:1.0
+cd ..
+cd busy
+cd simple-busybox/
+vi Dockerfile 
+docker build -t simple-busybox:2.0 .
+vi Dockerfile 
+docker build -t simple-busybox:2.0 .
+vi Dockerfile 
+docker build -t simple-busybox:2.0 .
+vi Dockerfile 
+docker build -t simple-busybox:2.0 .
+vi Dockerfile 
+docker build -t simple-busybox:2.0 .
+vi Dockerfile 
+docker build -t simple-busybox:2.0 .
+vi Dockerfile 
+cd ..
+mkdir icecoder
+cd icecoder/
+vi Dockerfile
+docker build -t ice:1.0 .
+vi Dockerfile
+docker build -t ice:1.0 .
+docker run -d --name ice1 -p 9090:80 ice:1.0 
+docker ps 
+docker inspect ice
+docker inspect ice1
+network list
+docker network list
+cd 
+cd lx-d_Oct/
+docker network list
+ip a
+docker ps 
+docker exec -it mailrelay bash
+docker network create custombridge
+docker network list
+docker network ls
+docker run -d -it --name netshoot1 --network custombridge nicolaka/netshoot
+docker ps
+docker run -d --name buxy100 --network custombridge simple-busybox:1.0 
+docker ps
+docker inspect netshoot1 
+docker network ls
+docker inspect busy100
+docker inspect busy
+docker ps -a
+docker inspect buxy100
+ip a
+docker network ls
+docker inspect custombridge 
+docker exec -it netshoot1 bash
+docker ps 
+docker run -d --name web --network host nginx
+docker rm -f web
+apt-get install net-tools -y
+sudo apt-get install net-tools -y
+netstat -vatnlp
+docker run -d --name web --network host nginx
+netstat -vatnlp
+docker run -d --name web2 -p 80:80 nginx
+docker network create -d macvlan --subnet 192.168.1.0/24 --gateway 192.168.1.1 --ip-range 192.168.1.105/32 -o parent=en33 macvlan1
+docker network create -d macvlan --subnet 192.168.1.0/24 --gateway 192.168.1.1 --ip-range 192.168.1.105/32 -o parent=ens33 macvlan1
+docker network ls
+ip a
+ip a | grep b87f522ea532
+ip a | grep bf06659af6d4
+docker network ls
+docker run -d --name web2 --network macvlan1 nginx
+docker ps -a
+docker rm web2
+docker run -d --name web2 --network macvlan1 nginx
+docker inspect web2
+docker run -d --name web3 --network macvlan1 nginx
+docker run -d --name web3 --network macvlan1 --ip 192.168.1.106 nginx
+docker rm web3
+docker run -d --name web3 --network macvlan1 --ip 192.168.1.106 nginx
+docker inspect web2 | grep MacAddress
+docker inspect web3 | grep MacAddress
+docker exec -it web3 bash
+docker run -d --name netshoot2 --network macvlan1 --ip 192.168.1.107 netshoot
+docker run -d --name netshoot2 --network macvlan1 --ip 192.168.1.107 nicolaka\netshoot
+docker run -d --name netshoot2 --network macvlan1 --ip 192.168.1.107 nicolaka/netshoot
+docker exec -it netshoot2 bash
+docker ps -a
+docker rm netshoot2 
+docker run -itd --name netshoot2 --network macvlan1 --ip 192.168.1.107 nicolaka/netshoot
+docker ps
+docker ps -a
+docker exec -it netshoot2 bash
+docker run -d --name web100 -P httpd
+docker p 
+docker ps
+docker exec -it netshoot2 bash
+docker exec -it netshoot1 bash
+docker network connect custombridge web100
+docker inspect web100
+docker exec -it netshoot1 bash
+docker network disconnect bridge web100
+docker inspect web100
+docker run --help | grep link
+docker run -it --name vol1 /data:/data alpine
+docker run -it --name vol1 -v /data:/data alpine
+cd /data/
+cd
+cd lx-d_Oct/
+docker run -it --name vol2 -v /data alpine
+sudo ls -la /var/lib/docker/volumes
+docker volume ls
+sudo -i
+docker ps -a
+docker container prune
+docker container ps
+docker volume ls
+docker volume create docker-volumes
+docker volume ls
+docker run -dit --name vol-named  -v docker-volumes:/dane alpine
+docker exec -it vol-named bash
+docker exec -it vol-named sh
+sudo ls -la /var/lib/docker/volumes/docker-volumes/_data
+docker inspect vol-named 
+cat /proc/partitions 
+echo "- - -" | sudo /sys/class/scsi_device/*/device/rescan
+cat /proc/partitions 
+sudo -i
+cat /proc/partitions 
+pvcreate /dev/sdb
+sudo pvcreate /dev/sdb
+sudo vgcreate --help
+sudo vgcreate vg_docker_volumes /dev/sdb
+sudo lvcreate -l 100%FREE -n lv_docker_vol vg_docker_volumes
+sudo lvs
+sudo mkfs.btrfs /dev/vg_docker_volumes/lv_docker_vol
+sudo -i
+sudo mkfs.btrfs /dev/vg_docker_volumes/lv_docker_vol
+docker volume create --opt device=/dev/vg_docker_volumes/lv_docker_vol --opt type=btrfs postgres-data
+docker volume ls
+docker inspect postgres-data 
+ls -la "/var/lib/docker/volumes/postgres-data/_data"
+sudo ls -la "/var/lib/docker/volumes/postgres-data/_data"
+docker images
+docker run -d --name test-vol ubuntu-customuser:1.0
+docker exec -it test-vol bash
+docker ps -a
+docker run -d --name test-vol ubuntu-customuser:2.0
+docker run -d --name test-vol2 ubuntu-customuser:2.0
+docker exec -it test-vol2 bash
+docker rm -f test-vol test-vol2
+docker run -d --name test-vol2 -v postgres-data:/pgdata ubuntu-customuser:2.0
+docker exec -it test-vol2 bash
+docker run -d --name test-vol -v postgres-data:/pgdata --entrypoint=tail ubuntu -f /dev/null
+docker exec -it test-vol bash
+sudo ls -la /var/lib/docker/volumes/postgres-data/_data
+df -h
+docker exec -it test-vol bash
+sudo ls -la /var/lib/docker/volumes/postgres-data/_data
+sudo ls -lha /var/lib/docker/volumes/postgres-data/_data
+df -h
+docker compose ps 
+apt-get install docker-compose
+sudo apt-get install docker-compose
+apt-get install docker-compose-plugin
+sudo apt-get install docker-compose-plugin
+docker compose
+docker compose ps -a
+docker compose ps
+docker-compose ps
+docker-compose ps -a
+mkdir docker-compose
+cd docker-compose
+mkdir page-counter
+cd page-counter
+ls -la
+vi docker-compose.yml
+vi Dockerfile
+vi app.py
+vi docker-compose.yml
+vi app.py
+vi requirements.txt
+docker compose up -d 
+vi docker-compose.yml 
+docker compose up -d 
+docker network ls
+docker ps -a
+docker rm -f 2810b76b80e8 94fbaa272c10 43c9db309be2 d9b90800f496 586ce75e3c23 702d4055fee9 67266264bf39 91776ead978b 1f1c77ff3eac 39dca67b29ad bae3ae52ab74 38971b516cb6 4d09715f3cf6 e735f1f00da9 331a03f0af6c
+docker ps -a
+docker compose down
+docker compose up -d 
+cd ..
+mkdir wordpress
+cd wordpress
+vi docker-compose.yaml
+docker compose up -d
+sudo ls -la /a
+sudo ls -la /var/lib/docker/volumes/wordpress_db_data/_data
+docker compose ps 
+cd ../page-counter/
+docker compose ps 
+cd ../wordpress/
+docker compose ps 
+docker compose ps -a
+docker ps -a
+docker ps
+docker ps -a
+netstat -vatnlp
+netstat -vatnulp
+ps -ef | grep nginx
+ps -ef | grep 80
+sudo systemctl status apache2
+docker compose down
+docker ps 
+docker ps -a
+docker volume ls
+docker volume rm  postgres-data wordpress_db_data
+docker volume rm docker-volumes
+vi docker-compose.yaml 
+docker compose up -d
+docker ps
+docker compose down
+vi docker-compose.yaml 
+docker compose up -d
+curl localhost:8080
+curl http://localhost:8080
+curl -v http://localhost:8080
+curl -v http://localhost:80
+docker compose down
+docker compose up -d
+docker compose down -v
+docker compose up -d
+cd ..
+mkdir multi-container-app
+cd multi-container-app
+vi docker-compose.yaml
+docker compose up -d
+docker compose down -v
+cd ..
+mkdir wiki
+cd wiki
+vi docker-compose.yaml
+docker compose up -d
+docker compose ps
+cd ..
+mkdir python-flask
+cd python-flask
+vi docker-compose.yaml
+docker compose up -d
+vi docker-compose.yaml
+docker compose up -d
+vi docker-compose.yaml
+docker compose up -d
+docker ps
+docker compose ps
+docker compose down
+docker compose up -d
+cd ..
+git status
+git add .
+git status
+git commit -m "adding day2 files"
+git push
+history
+history | awk '$1 > 350' | cut -c 8- > day2-history.txt
