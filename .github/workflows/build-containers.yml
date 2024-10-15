@@ -2,25 +2,25 @@ name: Build and push container images to ghcr.io
 
 on:
   # Development and Bugfixes
-  push:
-    branches:
-      - 'feature/*'
-      - 'bugfix/*'
-      - 'master'
-    paths:
-        - 'containers/**'
-        - '.github/workflows/build-containers.yml'
-        - '!**.md'
-
-  # Production - NOTE: Another prd-ready build with specific tag can be used
-  #pull_request:
+  #push:
   #  branches:
-  #    - main
+  #    - 'feature/*'
+  #    - 'bugfix/*'
+  #    - 'master'
   #  paths:
   #      - 'containers/**'
   #      - '.github/workflows/build-containers.yml'
   #      - '!**.md'
-  #  types: [ closed ]
+
+  # Production - NOTE: Another prd-ready build with specific tag can be used
+  pull_request:
+    branches:
+      - main
+    paths:
+        - 'containers/**'
+        - '.github/workflows/build-containers.yml'
+        - '!**.md'
+    types: [ closed ]
 
 jobs:
   build-and-push:
